@@ -1,75 +1,64 @@
-# React + TypeScript + Vite
+# G6CODERS — Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Public website for G6CODERS, the student-run software studio from Polytech Douala.
 
-Currently, two official plugins are available:
+**Français :** [README.fr.md](README.fr.md)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Status
 
-## React Compiler
+Active. Public source repository.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Features
 
-## Expanding the ESLint configuration
+- Home, services, projects, gallery, team, and contact sections
+- Admin area for content management
+- Responsive layout with light and dark themes
+- Contact form backed by the G6CODERS API
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Stack
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+| Layer | Technology |
+|---|---|
+| UI | React 19, TypeScript |
+| Build | Vite |
+| Routing | React Router |
+| Styling | Tailwind CSS 4, shadcn-style components |
+| Forms | React Hook Form, Zod |
+| HTTP | Axios |
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Getting started
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Prerequisites: Node.js 20+.
 
+```bash
+npm ci
+cp .env.example .env
+# VITE_API_URL=http://localhost:8000
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+Useful commands:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+npm run build
+npm run lint
+npm run preview
 ```
+
+## Deployment
+
+Deployed on Vercel. SPA rewrites are configured in [`vercel.json`](vercel.json).
+
+## Security
+
+- No secrets in the frontend. Only `VITE_*` values that are safe to expose.
+- Report vulnerabilities privately via the organization [security policy](https://github.com/G6CODERS/.github/blob/main/SECURITY.md).
+
+## Maintainers
+
+- `Mystral-hub` — lead
+- `Zeusse-Neumbi` — owner
+
+## License
+
+License to be decided by the owners. Until then, all rights are reserved.
