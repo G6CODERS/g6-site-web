@@ -14,7 +14,7 @@ jobs:
     if: vars.ALLOW_DIRECT_PUSH != 'true'
     steps:
       - name: Detect direct push
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           script: |
             const sha = context.payload.after;
