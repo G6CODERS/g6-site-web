@@ -1,0 +1,39 @@
+name: Security
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: '0 6 * * 1'
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  secrets:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Scan current tree for secrets
+        run: docker run --rm -v "$PWD:/repo" zricethezav/gitleaks:latest detect --source=/repo --no-git --redact --verbose
+
+  dependencies:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/dependency-review-action@v4
+        if: github.event_name == 'pull_request'
+        continue-on-error: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Audit dependencies
+        run: npm audit --audit-level=high
+        continue-on-error: true

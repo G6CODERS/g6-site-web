@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Lint
+        run: npm run lint
+      - name: Build
+        run: npm run build
+
+  gate:
+    needs: test
+    if: always() && github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - name: Mark pull request
+        uses: actions/github-script@v7
+        continue-on-error: true
+        with:
+          script: |
+            const ok = '${{ needs.test.result }}' === 'success';
+            await github.rest.pulls.createReview({
+              ...context.repo,
+              pull_number: context.payload.pull_request.number,
+              event: ok ? 'APPROVE' : 'REQUEST_CHANGES',
+              body: ok ? 'CI passed — ready for maintainer review.' : 'CI failed — do not merge.',
+            });
