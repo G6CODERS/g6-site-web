@@ -61,4 +61,4 @@ Deployed on Vercel. SPA rewrites are configured in [`vercel.json`](vercel.json).
 
 ## License
 
-License to be decided by the owners. Until then, all rights are reserved.
+MIT — see [LICENSE](LICENSE).
