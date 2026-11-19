@@ -49,6 +49,8 @@ npm run preview
 
 Deployed on Vercel. SPA rewrites are configured in [`vercel.json`](vercel.json).
 
+See [DEPLOYMENT.md](DEPLOYMENT.md) for the runbook and rollback.
+
 ## Security
 
 - No secrets in the frontend. Only `VITE_*` values that are safe to expose.
